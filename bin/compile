@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
+# TODO get distribution from environment variable
+# TODO run in debug / info mode
+# TODO set stacktrace on/off
+# TODO clear cache when instructed to
+
 # fail fast
 set -e
 
@@ -10,6 +15,7 @@ OPT_DIR=$(cd $BIN_DIR/../opt; pwd)
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+# GET distribution from environment
 GRADLE_DIST="gradle-1.8"
 GRADLE_TASK="stage"
 
@@ -46,7 +52,7 @@ else
     chmod u+rx ${GRADLE_DIST}/bin/gradle
     echo " done"
   fi
-  BUILDCMD="gradle -I $OPT_DIR/init.gradle"
+  BUILDCMD="gradle --debug -I $OPT_DIR/init.gradle"
 fi
 
 BUILDCMD="$BUILDCMD $GRADLE_TASK"
